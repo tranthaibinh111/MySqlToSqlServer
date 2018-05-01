@@ -8,5 +8,5 @@ class ProductImageEntity:
 		self.is_hidden = 0
 		self.created_date = str(datetime.now())
 		self.created_by = "admin"
-		self.modified_date = str(datetime.now())
-		self.modified_by = "admin"
+		self.modified_date = None
+		self.modified_by = None

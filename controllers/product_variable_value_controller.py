@@ -17,9 +17,9 @@ class ProductVariableValueController:
 			product_variable_column = []
 
 			if product_variable.color is not None and product_variable.size is not None:
-				product_variable_column = ["Color", "Size"]
+				product_variable_column = ["Màu", "Size"]
 			elif product_variable.color is not None:
-				product_variable_column = ["Color"]
+				product_variable_column = ["Màu"]
 			elif product_variable.size is not None:
 				product_variable_column = ["Size"]
 
@@ -30,7 +30,7 @@ class ProductVariableValueController:
 				product_variable_value.id = index
 				product_variable_value.product_variable_id = product_variable.id
 
-				if column == "Color":
+				if column == "Màu":
 					info_variable_value = variable_value_controller.get_variable_value_info(column, product_variable.color)
 				else:
 					info_variable_value = variable_value_controller.get_variable_value_info(column, product_variable.size)
@@ -39,7 +39,7 @@ class ProductVariableValueController:
 					print(column, " ", product_variable.color, " ", product_variable.size)
 					raise("Color or Size khong ton tai trong table tbl_VariableValue")
 
-				product_variable_value.product_variable_sku = str(product_variable.parent_sku) + str(info_variable_value["sku_text"])
+				product_variable_value.product_variable_sku = product_variable.sku
 				product_variable_value.variable_value_id = info_variable_value["id"]
 				product_variable_value.variable_name = info_variable_value["variable_name"]
 				product_variable_value.variable_value = info_variable_value["variable_value"]

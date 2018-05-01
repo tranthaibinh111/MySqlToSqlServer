@@ -35,17 +35,30 @@ class ProductController:
 			product.product_content = row[3]
 			product.product_sku = row[5]
 
-			if row[13] is None:
-				if row[13].upper() == "VARIABLE":
-					product.manage_stock = 0
-				else:
-					product.manage_stock = 1
+			if row[13] is not None and row[13].upper() == "VARIABLE":
+				product.product_stock = 0
+				product.manage_stock = 0
+				product.product_style = 2
 			else:
-				product.manage_stock = 1
+				if row[6] is not None:
+					if int(str(row[6]).replace("'", "")) > 0:
+						product.product_stock = row[6]
+					else:
+						product.product_stock = 0
 
-			product.regular_price = row[9]
-			product.cost_of_good = row[10]
-			product.retail_price = row[11]
+				if product.product_stock > 0:
+						product.stock_status = 1 #instock
+				else:
+					product.stock_status = 0 #outstock
+
+				product.manage_stock = 1
+				product.regular_price = row[9]
+				product.product_style = 1
+				product.minimum_inventory_level = 2
+				product.maximum_inventory_level = 10
+
+			product.cost_of_good = row[11]
+			product.retail_price = row[10]
 
 			if row[12] is not None:
 				image = row[12].split(" | ")
@@ -108,10 +121,10 @@ class ProductController:
 			product.created_by = "admin"
 
 		if product.modified_date is None:
-			product.modified_date = str(datetime.now())
+			product.modified_date = "NULL"
 
 		if product.modified_by is None:
-			product.modified_by = "admin"
+			product.modified_by = "NULL"
 
 		if product.materials is None:
 			product.materials = "NULL"
@@ -141,13 +154,13 @@ class ProductController:
 
 		return result
 
-	def update_status_stock(self, product_total):
+	def update_product_variable(self, product_parents):
 		for product in self.products:
-			for group in product_total:
-				if product.product_sku == group[0]:
-					product.product_stock = group[1]
+			for group in product_parents:
+				if product.product_sku == group["parent_sku"]:
+					product.regular_price = group["regular_price"]
 
-					if product.product_stock > 0:
+					if group["stock"] > 0:
 						product.stock_status = 1 #instock
 					else:
 						product.stock_status = 0 #outstock

@@ -16,7 +16,7 @@ if __name__ == "__main__":
 	product_variable_controller = ProductVariableController(os.getcwd() + "\\import_excel\\bien-the.xlsx", "bien-the", product_controller)
 	product_variable_value_controller = ProductVariableValueController(product_variable_controller, variable_value_controller)
 
-	product_controller.update_status_stock(product_variable_controller.product_totals)
+	product_controller.update_product_variable(product_variable_controller.product_parents)
 
 	product_controller.export_sql()
 	product_image_controller.export_sql()

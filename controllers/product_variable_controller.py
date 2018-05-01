@@ -9,7 +9,7 @@ class ProductVariableController:
 		self.__file_name = file_name
 		self.__sheet_name = sheet_name
 		self.product_variables = []
-		self.product_totals = []
+		self.product_parents = []
 
 		self.__mapping(*product_controller)
 
@@ -55,19 +55,23 @@ class ProductVariableController:
 			product_variable.retail_price = row[14]
 
 			self.product_variables.append(product_variable)
-			self.__calculator_product_stock(product_variable.parent_sku, product_variable.stock)
+			self.__calculator_product(product_variable.parent_sku, product_variable.stock, product_variable.regular_price)
 
 	# Su ly lay thong tin stock  cho table product
-	def __calculator_product_stock(self, parent_sku, stock):
+	def __calculator_product(self, parent_sku, stock, regular_price):
 		check_exist = False
+		min_regular_price = regular_price
 
-		for product_stock in self.product_totals:
-			if product_stock[0] == parent_sku:
-				product_stock[1] += stock
+		for product_stock in self.product_parents:
+			if product_stock["parent_sku"] == parent_sku:
 				check_exist = True
+				product_stock["stock"] += stock
+
+				if product_stock["regular_price"] > min_regular_price:
+					product_stock["regular_price"] = min_regular_price
 
 		if not check_exist:
-			self.product_totals.append([parent_sku, stock])
+			self.product_parents.append({"parent_sku" : parent_sku, "stock": stock, "regular_price": regular_price})
 
 	def __convert_sql(self, product_variable):
 		if product_variable.product_id is None:
@@ -104,10 +108,10 @@ class ProductVariableController:
 			product_variable.created_by = "admin"
 
 		if product_variable.modified_date is None:
-			product_variable.modified_date = str(datetime.now())
+			product_variable.modified_date = "NULL"
 
 		if product_variable.modified_by is None:
-			product_variable.modified_by = "admin"
+			product_variable.modified_by = "NULL"
 
 		if product_variable.color is None:
 			product_variable.color = "NULL"
@@ -119,10 +123,10 @@ class ProductVariableController:
 			product_variable.retail_price = 0
 
 		if product_variable.minimum_inventory_level is None:
-			product_variable.minimum_inventory_level = "NULL"
+			product_variable.minimum_inventory_level = 2
 
 		if product_variable.maximum_inventory_level is None:
-			product_variable.maximum_inventory_level = "NULL"
+			product_variable.maximum_inventory_level = 10
 
 		if product_variable.supplier_id is None:
 			product_variable.supplier_id = "NULL"

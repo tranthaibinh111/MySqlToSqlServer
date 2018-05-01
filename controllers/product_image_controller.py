@@ -48,10 +48,10 @@ class ProductImageController:
 			product_image.created_by = "admin"
 
 		if product_image.modified_date is None:
-			product_image.modified_date = str(datetime.now())
+			product_image.modified_date = "NULL"
 
 		if product_image.modified_by is None:
-			product_image.modified_by = "admin"
+			product_image.modified_by = "NULL"
 
 	def export_sql(self):
 		file_name = os.getcwd() + "\\export_sql\\product_image.sql"
