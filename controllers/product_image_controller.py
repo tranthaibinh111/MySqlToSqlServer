@@ -12,7 +12,7 @@ class ProductImageController:
 
         index = 0
 
-        for product in product_controller.products:
+        for product in product_controller.get_product_list():
             if product.product_images is not None:
                 for image in product.product_images:
 

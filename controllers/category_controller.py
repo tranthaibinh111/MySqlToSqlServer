@@ -3,17 +3,17 @@ from controllers.excel_controller import ExcelController
 
 
 class CategoryController:
-    def __init__(self, file_name, sheet_name='Sheet1'):
+    def __init__(self, file_name, sheet_name):
         self.__file_name = file_name
         self.__sheet_name = sheet_name
-        self.categorys = []
+        self.categories = []
 
         self.__mapping()
 
     def __mapping(self):
-        datas = ExcelController.get_data(self.__file_name, self.__sheet_name)
+        data = ExcelController.get_data(self.__file_name, self.__sheet_name)
 
-        for row in datas:
+        for row in data:
             category = CategoryEntity()
 
             category.id = row[0]
@@ -27,12 +27,12 @@ class CategoryController:
             category.modified_date = row[8]
             category.modified_by = row[9]
 
-            self.categorys.append(category)
+            self.categories.append(category)
 
     def get_category_id(self, category_name):
         result = None
 
-        for category in self.categorys:
+        for category in self.categories:
             if category.category_name.upper() == category_name.upper():
                 result = category.id
                 break

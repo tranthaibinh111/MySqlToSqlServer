@@ -5,19 +5,20 @@ from controllers.excel_controller import ExcelController
 
 
 class ProductController:
-    def __init__(self, file_name, sheet_name="Sheet1", *category_controller):
+    def __init__(self, file_name, sheet_name, category_controller):
         self.__file_name = file_name
         self.__sheet_name = sheet_name
-        self.products = []
+        self.product_simples = []
+        self.product_variables = []
 
-        self.__mapping(*category_controller)
+        self.__mapping(category_controller)
 
     def __mapping(self, category_controller):
-        datas = ExcelController.get_data(self.__file_name, self.__sheet_name)
+        data = ExcelController.get_data(self.__file_name, self.__sheet_name)
 
         index = 0
 
-        for row in datas:
+        for row in data:
             index += 1
             product = ProductEntity()
 
@@ -68,12 +69,20 @@ class ProductController:
                 product.product_images = image
                 product.product_image = product.product_images[0]
 
-            self.products.append(product)
+            if product.manage_stock == 1:
+                # simple
+                self.product_simples.append(product)
+            else:
+                # variable
+                self.product_variables.append(product)
 
-    def get_product_id(self, product_sku):
+    def get_product_list(self):
+        return self.product_simples + self.product_variables
+
+    def get_product_variable_id(self, product_sku):
         result = None
 
-        for product in self.products:
+        for product in self.product_variables:
             if product.product_sku.upper() == product_sku.upper():
                 result = product.id
                 break
@@ -81,7 +90,7 @@ class ProductController:
         return result
 
     def update_product_variable(self, product_parents):
-        for product in self.products:
+        for product in self.product_variables:
             for group in product_parents:
                 if product.product_sku == group["parent_sku"]:
                     product.regular_price = group["regular_price"]
@@ -103,7 +112,7 @@ class ProductController:
             wf.write("\n")
 
             index = 0
-            for product in self.products:
+            for product in self.get_product_list():
                 index += 1
 
                 if product.product_title is not None:

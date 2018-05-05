@@ -5,20 +5,20 @@ from controllers.excel_controller import ExcelController
 
 
 class ProductVariableController:
-    def __init__(self, file_name, sheet_name="Sheet1", *product_controller):
+    def __init__(self, file_name, sheet_name, product_controller):
         self.__file_name = file_name
         self.__sheet_name = sheet_name
         self.product_variables = []
         self.product_parents = []
 
-        self.__mapping(*product_controller)
+        self.__mapping(product_controller)
 
     def __mapping(self, product_controller):
-        datas = ExcelController.get_data(self.__file_name, self.__sheet_name)
+        data = ExcelController.get_data(self.__file_name, self.__sheet_name)
 
         index = 0
 
-        for row in datas:
+        for row in data:
             index += 1
             product_variable = ProductVariableEntity()
 
@@ -26,7 +26,7 @@ class ProductVariableController:
             product_variable.parent_sku = row[0]
             product_variable.sku = row[4]
 
-            product_variable.product_id = product_controller.get_product_id(product_variable.parent_sku)
+            product_variable.product_id = product_controller.get_product_variable_id(product_variable.parent_sku)
             if product_variable.product_id is None:
                 print(product_variable.parent_sku)
                 raise Exception("ParentSku khong ton tai trong table tbl_Product")

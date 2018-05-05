@@ -5,6 +5,7 @@ from controllers.product_controller import ProductController
 from controllers.product_image_controller import ProductImageController
 from controllers.product_variable_controller import ProductVariableController
 from controllers.product_variable_value_controller import ProductVariableValueController
+from controllers.in_out_product_variable_controller import InOutProductVariableController
 
 if __name__ == "__main__":
     root_path = os.getcwd()
@@ -42,6 +43,9 @@ if __name__ == "__main__":
                                                             product_controller)
     product_variable_value_controller = ProductVariableValueController(product_variable_controller,
                                                                        variable_value_controller)
+    in_out_product_variable_controller = InOutProductVariableController(product_controller,
+                                                                        product_variable_controller,
+                                                                        variable_value_controller)
 
     # Update thông tin table chính từ table phụ
     print("Update thông tin table chính từ table phụ")
@@ -53,5 +57,6 @@ if __name__ == "__main__":
     product_image_controller.export_sql()
     product_variable_controller.export_sql()
     product_variable_value_controller.export_sql()
+    in_out_product_variable_controller.export_sql()
 
     print("Ket thuc chuong trinh")

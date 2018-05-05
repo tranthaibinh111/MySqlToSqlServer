@@ -6,7 +6,7 @@ class ExcelController:
         raise Exception("Class ExcelController khong the khoi tao")
 
     @staticmethod
-    def get_data(file_name, sheet_name="Sheet1"):
+    def get_data(file_name, sheet_name):
         if file_name == '':
             raise Exception("Chua cho thong tin file excel")
 
@@ -15,7 +15,7 @@ class ExcelController:
             ws = wb[sheet_name]
 
             index = 0
-            datas = []
+            data = []
 
             for row in ws.rows:
                 index += 1
@@ -24,13 +24,13 @@ class ExcelController:
                 if index == 1:
                     continue
 
-                data = []
+                data_row = []
                 for cell in row:
-                    data.append(cell.value)
+                    data_row.append(cell.value)
 
-                datas.append(data)
+                data.append(data_row)
 
-            return datas
+            return data
 
         except Exception as e:
             print(e)

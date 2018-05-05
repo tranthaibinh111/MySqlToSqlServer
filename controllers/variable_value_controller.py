@@ -3,7 +3,7 @@ from controllers.excel_controller import ExcelController
 
 
 class VariableValueController:
-    def __init__(self, file_name, sheet_name='Sheet1'):
+    def __init__(self, file_name, sheet_name):
         self.__file_name = file_name
         self.__sheet_name = sheet_name
         self.variable_values = []
@@ -11,9 +11,9 @@ class VariableValueController:
         self.__mapping()
 
     def __mapping(self):
-        datas = ExcelController.get_data(self.__file_name, self.__sheet_name)
+        data = ExcelController.get_data(self.__file_name, self.__sheet_name)
 
-        for row in datas:
+        for row in data:
             variable_value = VariableValueEntity()
 
             variable_value.id = row[0]
@@ -34,7 +34,8 @@ class VariableValueController:
         result = None
 
         for variable_value in self.variable_values:
-            if variable_value.variable_name.upper() == variable_name.upper() and str(variable_value.variable_value_text).upper() == str(variable_value_text).upper():
+            if variable_value.variable_name.upper() == variable_name.upper() \
+                    and str(variable_value.variable_value_text).upper() == str(variable_value_text).upper():
                 result = {
                             'id': variable_value.id,
                             'variable_name': variable_value.variable_name,

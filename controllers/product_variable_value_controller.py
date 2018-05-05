@@ -30,9 +30,11 @@ class ProductVariableValueController:
                 product_variable_value.product_variable_id = product_variable.id
 
                 if column == "Màu":
-                    info_variable_value = variable_value_controller.get_variable_value_info(column, product_variable.color)
+                    info_variable_value = variable_value_controller.get_variable_value_info(column,
+                                                                                            product_variable.color)
                 else:
-                    info_variable_value = variable_value_controller.get_variable_value_info(column, product_variable.size)
+                    info_variable_value = variable_value_controller.get_variable_value_info(column,
+                                                                                            product_variable.size)
 
                 if info_variable_value is None:
                     print(column, " ", product_variable.color, " ", product_variable.size)
