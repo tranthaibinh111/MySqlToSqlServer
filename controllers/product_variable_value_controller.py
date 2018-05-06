@@ -1,6 +1,6 @@
 import os
-from common.sql.common_sql import CommonSql
-from models.product_variable_value_entity import ProductVariableValueEntity
+from common.sql import CommonSql
+from models import ProductVariableValueEntity
 
 
 class ProductVariableValueController:

@@ -1,6 +1,6 @@
 import os
-from common.sql.common_sql import CommonSql
-from models.product_image_entity import ProductImageEntity
+from common.sql import CommonSql
+from models import ProductImageEntity
 
 
 class ProductImageController:

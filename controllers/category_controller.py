@@ -1,5 +1,5 @@
-from models.category_entity import CategoryEntity
-from controllers.excel_controller import ExcelController
+from controllers import ExcelController
+from models import CategoryEntity
 
 
 class CategoryController:

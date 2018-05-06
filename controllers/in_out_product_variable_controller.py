@@ -1,13 +1,11 @@
 import os
-from common.sql.common_sql import CommonSql
-from models.in_out_product_variable_entity import InOutProductVariableEntity
+from common.sql import CommonSql
+from models import InOutProductVariableEntity
 
 
 class InOutProductVariableController:
     def __init__(self, product_controller, product_variable_controller, variable_value_controller):
         self.in_out_product_variable = []
-        print(len(product_controller.product_simples))
-        print(len(product_variable_controller.product_variables))
 
         self.__mapping(product_controller, product_variable_controller, variable_value_controller)
 
@@ -66,7 +64,7 @@ class InOutProductVariableController:
             product.product_type = 2
             product.sku = data.sku
             product.product_variable = product_variable_value
-            product.product_id = data.product_id
+            product.parent_id = data.product_id
 
             self.in_out_product_variable.append(product)
 

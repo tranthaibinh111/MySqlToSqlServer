@@ -1,7 +1,7 @@
 import os
-from common.sql.common_sql import CommonSql
-from models.product_entity import ProductEntity
-from controllers.excel_controller import ExcelController
+from common.sql import CommonSql
+from models import ProductEntity
+from controllers import ExcelController
 
 
 class ProductController:

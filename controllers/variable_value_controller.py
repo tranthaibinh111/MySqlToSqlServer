@@ -1,5 +1,5 @@
-from models.variable_value_entity import VariableValueEntity
-from controllers.excel_controller import ExcelController
+from models import VariableValueEntity
+from controllers import ExcelController
 
 
 class VariableValueController:

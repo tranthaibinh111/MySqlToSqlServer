@@ -1,11 +1,11 @@
 import os
-from controllers.category_controller import CategoryController
-from controllers.variable_value_controller import VariableValueController
-from controllers.product_controller import ProductController
-from controllers.product_image_controller import ProductImageController
-from controllers.product_variable_controller import ProductVariableController
-from controllers.product_variable_value_controller import ProductVariableValueController
-from controllers.in_out_product_variable_controller import InOutProductVariableController
+from controllers import CategoryController, \
+    InOutProductVariableController, \
+    ProductController, \
+    ProductImageController, \
+    ProductVariableController, \
+    ProductVariableValueController, \
+    VariableValueController
 
 if __name__ == "__main__":
     root_path = os.getcwd()
