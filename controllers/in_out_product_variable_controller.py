@@ -72,9 +72,9 @@ class InOutProductVariableController:
         file_name = os.getcwd() + "\\export_sql\\in_out_product_variable.sql"
 
         with open(file_name, mode="w+", encoding="utf-8") as wf:
-            wf.write("SET IDENTITY_INSERT dbo.tbl_InOutProductVariable ON;\n")
+            wf.write("SET IDENTITY_INSERT dbo.tbl_StockManager ON;\n")
             wf.write("\n")
-            wf.write("DELETE FROM dbo.tbl_InOutProductVariable;\n")
+            wf.write("DELETE FROM dbo.tbl_StockManager;\n")
             wf.write("\n")
 
             index = 0
@@ -82,30 +82,30 @@ class InOutProductVariableController:
                 index += 1
 
                 sql_text = ""
-                sql_text += "INSERT INTO dbo.tbl_InOutProductVariable("
+                sql_text += "INSERT INTO dbo.tbl_StockManager("
                 sql_text += "     ID"
                 sql_text += ",    AgentID"
                 sql_text += ",    ProductID"
                 sql_text += ",    ProductVariableID"
-                sql_text += ",    ProductVariableName"
-                sql_text += ",    ProductVariableValue"
+                # sql_text += ",    ProductVariableName"
+                # sql_text += ",    ProductVariableValue"
                 sql_text += ",    Quantity"
                 sql_text += ",    QuantityCurrent"
                 sql_text += ",    Type"
-                sql_text += ",    IsHidden"
+                # sql_text += ",    IsHidden"
                 sql_text += ",    CreatedDate"
                 sql_text += ",    CreatedBy"
                 sql_text += ",    ModifiedDate"
                 sql_text += ",    ModifiedBy"
-                sql_text += ",    ProductType"
-                sql_text += ",    Note"
+                # sql_text += ",    ProductType"
+                sql_text += ",    NoteID"
                 sql_text += ",    OrderID"
-                sql_text += ",    SessionInOutID"
+                # sql_text += ",    SessionInOutID"
                 sql_text += ",    Status"
-                sql_text += ",    ProductName"
+                # sql_text += ",    ProductName"
                 sql_text += ",    SKU"
-                sql_text += ",    ProductImage"
-                sql_text += ",    ProductVariable"
+                # sql_text += ",    ProductImage"
+                # sql_text += ",    ProductVariable"
                 sql_text += ",    MoveProID"
                 sql_text += ",    ParentID"
                 sql_text += ") VALUES("
@@ -113,25 +113,25 @@ class InOutProductVariableController:
                 sql_text += ",    " + CommonSql.f_str_value(product.agent_id)
                 sql_text += ",    " + CommonSql.f_str_value(product.product_id)
                 sql_text += ",    " + CommonSql.f_str_value(product.product_variable_id)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_variable_name)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_variable_value)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_variable_name)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_variable_value)
                 sql_text += ",    " + CommonSql.f_str_value(product.quantity)
                 sql_text += ",    " + CommonSql.f_str_value(product.quantity_current)
                 sql_text += ",    " + CommonSql.f_str_value(product.type)
-                sql_text += ",    " + CommonSql.f_str_value(product.is_hidden)
+                # sql_text += ",    " + CommonSql.f_str_value(product.is_hidden)
                 sql_text += ",    " + CommonSql.f_str_value(product.created_date)
                 sql_text += ",    " + CommonSql.f_str_value(product.created_by)
                 sql_text += ",    " + CommonSql.f_str_value(product.modified_date)
                 sql_text += ",    " + CommonSql.f_str_value(product.modified_by)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_type)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_type)
                 sql_text += ",    " + CommonSql.f_str_value(product.note)
                 sql_text += ",    " + CommonSql.f_str_value(product.order_id)
-                sql_text += ",    " + CommonSql.f_str_value(product.session_in_out_id)
+                # sql_text += ",    " + CommonSql.f_str_value(product.session_in_out_id)
                 sql_text += ",    " + CommonSql.f_str_value(product.status)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_name)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_name)
                 sql_text += ",    " + CommonSql.f_str_value(product.sku)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_image)
-                sql_text += ",    " + CommonSql.f_str_value(product.product_variable)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_image)
+                # sql_text += ",    " + CommonSql.f_str_value(product.product_variable)
                 sql_text += ",    " + CommonSql.f_str_value(product.move_pro_id)
                 sql_text += ",    " + CommonSql.f_str_value(product.parent_id)
                 sql_text += ");\n"
