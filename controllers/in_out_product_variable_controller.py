@@ -42,7 +42,7 @@ class InOutProductVariableController:
 
                 color = variable_value_controller.get_variable_value_info("Màu", data.color)
                 size = variable_value_controller.get_variable_value_info("Size", data.size)
-                product_variable_value = color["variable_value"] + "|" + size["variable_value"]
+                product_variable_value = color["variable_value"] + "|" + str(size["variable_value"])
             else:
                 if data.color is not None:
                     product_variable_name = "Màu|"
@@ -53,7 +53,7 @@ class InOutProductVariableController:
                     product_variable_name = "Size|"
 
                     size = variable_value_controller.get_variable_value_info("Size", data.size)
-                    product_variable_value = size["variable_value"] + "|"
+                    product_variable_value = str(size["variable_value"]) + "|"
                 else:
                     product_variable_name = None
                     product_variable_value = None

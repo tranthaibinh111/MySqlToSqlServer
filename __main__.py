@@ -13,12 +13,12 @@ if __name__ == "__main__":
     # Lấy thông tin các danh mục cần thiết
     print("Lấy thông tin các danh mục cần thiết")
     category_file = {
-        "path_full": root_path + "\\import_excel\\category.xlsx",
+        "path_full": root_path + "\\import_excel\\20180619_category.xlsx",
         "sheet": "category"
     }
 
     variable_value_file = {
-        "path_full": root_path + "\\import_excel\\variable-value.xlsx",
+        "path_full": root_path + "\\import_excel\\20180619_variable-value.xlsx",
         "sheet": "variable-value"
     }
 
@@ -28,11 +28,11 @@ if __name__ == "__main__":
     # Đọc thông tin từ file excel cần import
     print("Đọc thông tin từ file excel cần import")
     product_file = {
-        "path_full": root_path + "\\import_excel\\san-pham.xlsx",
+        "path_full": root_path + "\\import_excel\\20180619_san-pham.xlsx",
         "sheet": "san-pham"
     }
     product_variable_file = {
-        "path_full": root_path + "\\import_excel\\bien-the.xlsx",
+        "path_full": root_path + "\\import_excel\\20180619_bien-the.xlsx",
         "sheet": "bien-the"
     }
 
@@ -53,6 +53,7 @@ if __name__ == "__main__":
 
     # Xuất file sql import
     print("Xuất file sql import")
+    category_controller.export_sql()
     product_controller.export_sql()
     product_image_controller.export_sql()
     product_variable_controller.export_sql()
