@@ -1,3 +1,5 @@
+import os
+from common.sql import CommonSql
 from models import VariableValueEntity
 from controllers import ExcelController
 
@@ -20,11 +22,6 @@ class VariableValueController:
             variable_value.variable_id = row[1]
             variable_value.variable_name = row[2]
             variable_value.variable_value = row[3]
-            variable_value.is_hidden = row[4]
-            variable_value.create_date = row[5]
-            variable_value.create_by = row[6]
-            variable_value.modified_date = row[7]
-            variable_value.modified_by = row[8]
             variable_value.variable_value_text = row[9]
             variable_value.sku_text = row[10]
 
@@ -45,3 +42,51 @@ class VariableValueController:
                 break
 
         return result
+
+    def export_sql(self):
+        file_name = os.getcwd() + "\\export_sql\\variable_value.sql"
+
+        with open(file_name, mode="w", encoding="utf-8") as wf:
+            wf.write("SET IDENTITY_INSERT dbo.tbl_VariableValue ON;\n")
+            wf.write("\n")
+            wf.write("DELETE FROM dbo.tbl_VariableValue;\n")
+            wf.write("\n")
+
+            index = 0
+            for variable_value in self.variable_values:
+                index += 1
+
+                sql_text = ""
+                sql_text += "INSERT INTO dbo.tbl_VariableValue("
+                sql_text += "     ID"
+                sql_text += ",    VariableID"
+                sql_text += ",    VariableName"
+                sql_text += ",    VariableValue"
+                sql_text += ",    IsHidden"
+                sql_text += ",    CreatedDate"
+                sql_text += ",    CreatedBy"
+                sql_text += ",    ModifiedDate"
+                sql_text += ",    ModifiedBy"
+                sql_text += ",    VariableValueText"
+                sql_text += ",    SKUText"
+                sql_text += ") VALUES("
+                sql_text += "     " + CommonSql.f_str_value(variable_value.id)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.variable_id)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.variable_name)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.variable_value)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.is_hidden)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.create_date)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.create_by)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.modified_date)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.modified_by)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.variable_value_text)
+                sql_text += ",    " + CommonSql.f_str_value(variable_value.sku_text)
+                sql_text += ");\n"
+
+                wf.write(sql_text)
+
+                if index > 100:
+                    wf.write("GO\n")
+                    index = 0
+
+            wf.write("SET IDENTITY_INSERT dbo.tbl_VariableValue OFF;\n")

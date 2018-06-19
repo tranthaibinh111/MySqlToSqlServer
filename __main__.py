@@ -54,6 +54,7 @@ if __name__ == "__main__":
     # Xuất file sql import
     print("Xuất file sql import")
     category_controller.export_sql()
+    variable_value_controller.export_sql()
     product_controller.export_sql()
     product_image_controller.export_sql()
     product_variable_controller.export_sql()
